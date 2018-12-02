@@ -34,6 +34,14 @@ class StartElasticAction {
     @Optional
     File logsDir
 
+    @Input
+    @Optional
+    String clusterName
+
+    @Input
+    @Optional
+    List<String> settings
+
     private Project project
 
     private AntBuilder ant
@@ -78,6 +86,20 @@ class StartElasticAction {
                 "${optPrefix}path.data=$dataDir",
                 "${optPrefix}path.logs=$logsDir"
         ]
+
+        if (clusterName) {
+            command += [
+                    "${optPrefix}cluster.name=$clusterName"
+            ]
+        }
+
+        if (settings) {
+            for (it in settings) {
+                command += [
+                        "${optPrefix}${it}"
+                ]
+            }
+        }
 
         if (!isFamily(FAMILY_WINDOWS)) {
             command += [

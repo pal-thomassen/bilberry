@@ -50,6 +50,8 @@ Plugin setup with gradle < 2.1:
           transportPort = 9300
           dataDir = file("$buildDir/elastic")
           logsDir = file("$buildDir/elastic/logs")
+          clusterName = "IntegrationTestCluster"
+          settings = ("reindex.remote.whitelist=localhost:9201")
         }
       }
   
